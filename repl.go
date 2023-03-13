@@ -6,13 +6,14 @@ import (
 	"os"
 )
 
-func main() {
+func startRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
 
-	fmt.Print(" >")
+	fmt.Printf(" >")
 
 	scanner.Scan()
-	test := scanner.Text()
+	text := scanner.Text()
 
-	fmt.Println("echoing: ", test)
+	fmt.Println("echoing:", text)
+
 }
