@@ -1,14 +1,19 @@
 package pokeapi
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 )
 
-func (c *Client) ListLocationAreas() (LocationAreaResp, error) {
-	endpoint = "/location-area"
+func (c *Client) ListLocationAreas(pageURL *string) (LocationAreaResp, error) {
+	endpoint := "/location-area"
 	fullURL := baseURL + endpoint
+
+	if pageURL != nil {
+		fullURL = *pageURL
+	}
 
 	req, err := http.NewRequest("GET", fullURL, nil)
 	if err != nil {
@@ -31,4 +36,11 @@ func (c *Client) ListLocationAreas() (LocationAreaResp, error) {
 		return LocationAreaResp{}, err
 	}
 
+	locationAreaResp := LocationAreaResp{}
+	err = json.Unmarshal(data, &locationAreaResp)
+	if err != nil {
+		return LocationAreaResp{}, err
+	}
+
+	return locationAreaResp, nil
 }
