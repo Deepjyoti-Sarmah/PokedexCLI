@@ -1,19 +1,21 @@
 package main
 
-import "github.com/DeepjyotiSarmah/pokedexcli/internal/pokeapi"
+import (
+	"time"
+
+	"github.com/DeepjyotiSarmah/pokedexcli/internal/pokeapi"
+)
 
 type config struct {
-	pokeapiClient pokeapi.Client
+	pokeapiClient       pokeapi.Client
 	nextLocationAreaURL *string
 	prevLocationAreaURL *string
 }
 
-
 func main() {
 	cfg := config{
-		pokeapiClient:  pokeapi.NewClient(),
+		pokeapiClient: pokeapi.NewClient(time.Hour),
 	}
-
 
 	startRepl(&cfg)
 }
